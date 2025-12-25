@@ -2,14 +2,15 @@ using UnityEngine;
 
 public class teleport : MonoBehaviour
 {
-    [SerializeField] GameObject Point;
+    public Transform Point;
     private void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Player"))
         {
-            other.transform.position = new Vector3(-17, 14, -6);
-            print("Deb");
+            if (GameObject.Find("deb_point"))
+            other.GetComponent<CharacterController>().enabled = false;
+            other.transform.position = GameObject.Find("deb_point").transform.position;
+            other.GetComponent<CharacterController>().enabled = true;
         }
     }    
 }

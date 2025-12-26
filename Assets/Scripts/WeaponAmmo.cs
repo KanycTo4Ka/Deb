@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public enum WeaponTypes { Machinegun, Shotgun, Flamethrower, Plasmagun };
+public enum WeaponTypes { Pistol, Machinegun, Shotgun, RocketLauncher};
 
 [Serializable]
 public struct WeaponAmmo

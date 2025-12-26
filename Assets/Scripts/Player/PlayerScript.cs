@@ -5,19 +5,18 @@ public class PlayerScript : MonoBehaviour
     public WeaponSelector weaponSelector;
     public WeaponScript weaponScript;
 
-    public int numberOfWeapons = 4;
+    public int numberOfWeapons = 2;
 
     void Update()
     {
         float mouseWheelDelta = Input.GetAxisRaw("Mouse ScrollWheel");
-        if (mouseWheelDelta > 0) weaponScript.setWeapon(weaponSelector.selectNextWeapon());
-        if (mouseWheelDelta < 0) weaponScript.setWeapon(weaponSelector.selectPrevWeapon());
+        if (mouseWheelDelta > 0) weaponScript.setWeapon(weaponSelector.changeWeapon());
+        if (mouseWheelDelta < 0) weaponScript.setWeapon(weaponSelector.changeWeapon());
     }
 
     private void OnGUI()
     {
         Event e = Event.current;
-
         if (e.type == EventType.KeyDown)
         {
             int k = (int)(e.keyCode - KeyCode.Alpha0);

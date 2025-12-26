@@ -5,12 +5,12 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    [Range(1, 100)]
-    [SerializeField] int maxHealth;
-    [Range(1, 100)]
-    [SerializeField] int curHealth;
+    [Range(1f, 100f)]
+    [SerializeField] float defaulMaxHealth;
+    float curMaxHealth;
+    float curHealth;
 
-    public UnityEvent<int, int> onHealthChange;
+    public UnityEvent<float, float> onHealthChange;
 
     public UnityEvent<Vector3> spawnOnDeath;
     public UnityEvent onDeath;
@@ -26,25 +26,27 @@ public class Health : MonoBehaviour
 
     void Start()
     {
-        onHealthChange?.Invoke(curHealth, maxHealth);
+        curMaxHealth = defaulMaxHealth;
+        curHealth = curMaxHealth;
+        onHealthChange?.Invoke(curHealth, curMaxHealth);
         //scriptLocker = GetComponent<ScriptLocker>();
         animator = GetComponent<Animator>();
     }
 
     public bool changeHealth(int amount)
     {
-        if (curHealth == maxHealth)
+        if (curHealth == curMaxHealth)
             return false;
 
         curHealth += amount;
             
-        if (curHealth > maxHealth)
-            curHealth = maxHealth;
+        if (curHealth > curMaxHealth)
+            curHealth = curMaxHealth;
 
         if (curHealth < 0)
             curHealth = 0;
 
-        onHealthChange?.Invoke(curHealth, maxHealth);
+        onHealthChange?.Invoke(curHealth, curMaxHealth);
 
         return true;
     }
@@ -60,7 +62,7 @@ public class Health : MonoBehaviour
         if (curHealth < 0)
             curHealth = 0;
 
-        onHealthChange?.Invoke(curHealth, maxHealth);
+        onHealthChange?.Invoke(curHealth, curMaxHealth);
         if (curHealth <= 0)
         {
             onDeath?.Invoke();
@@ -79,5 +81,15 @@ public class Health : MonoBehaviour
     public void getHit()
     {
         animator.SetTrigger("damaged");
+    }
+
+    public void setToDefault()
+    {
+        curMaxHealth = defaulMaxHealth;
+    }
+
+    public void modifyMaxHealth(float amount)
+    {
+        curMaxHealth = amount * defaulMaxHealth;
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    [Range(1, 100)] float moveSpeed = 10;
+    [Range(1, 100)] float defaultMoveSpeed = 10;
+    float curMoveSpeed;
     [SerializeField]
     [Range(1, 100)] float jumpForce = 5;
     [SerializeField] CharacterController controller;
@@ -13,6 +14,11 @@ public class PlayerMovement : MonoBehaviour
     Vector3 direction = Vector3.zero;
     Vector3 velocity = Vector3.zero;
     bool grounded = true;
+
+    private void Start()
+    {
+        curMoveSpeed = defaultMoveSpeed;
+    }
 
     private void OnMove(InputValue movementValue)
     {
@@ -29,11 +35,21 @@ public class PlayerMovement : MonoBehaviour
     void LateUpdate()
     {
         grounded = controller.isGrounded;
-        controller.Move(transform.TransformDirection(direction) * (moveSpeed * Time.deltaTime));
+        controller.Move(transform.TransformDirection(direction) * (curMoveSpeed * Time.deltaTime));
 
         if (grounded && velocity.y < 0) velocity.y = 0;
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void setToDefault()
+    {
+        curMoveSpeed = defaultMoveSpeed;
+    }
+
+    public void modifyMoveSpeed(float amount)
+    {
+        curMoveSpeed = amount * defaultMoveSpeed;
     }
 }

@@ -18,7 +18,7 @@ public class CMachineGun : CWeapon
         base.fire(ammunition);
 
         tracerSystem.createTracer(firePoint.position, firePoint.forward);
-        machinegunLogic.shot(firePoint, damage); 
+        machinegunLogic.shot(firePoint, curDamage); 
     }
 
     public override WeaponTypes getWeaponType()

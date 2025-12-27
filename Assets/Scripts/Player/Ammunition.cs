@@ -4,9 +4,6 @@ using UnityEngine.Events;
 
 public class Ammunition : MonoBehaviour
 {
-    [SerializeField]
-    [Range(0, 100)] public int ammoCount = 50;
-
     [SerializeField] public List<WeaponAmmo> ammoList;
     public Dictionary<WeaponTypes, int> ammoDictionary;
 
@@ -50,9 +47,12 @@ public class Ammunition : MonoBehaviour
         return true;
     }
 
-    public bool addAmmo(int amount)
+    public bool addAmmo(WeaponTypes type, int amount)
     {
-        ammoCount += amount;
+        if (ammoDictionary.ContainsKey(type) == false)
+            return false;
+
+        ammoDictionary[type] += amount;
         onAmmoChange?.Invoke();
 
         return true;

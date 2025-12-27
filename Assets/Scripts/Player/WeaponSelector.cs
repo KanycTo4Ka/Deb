@@ -8,13 +8,12 @@ public class WeaponSelector : MonoBehaviour
 
     int selectedWeaponIndex = 0;
     int secondWeaponIndex = 0;
+    bool swordIsActive = false;
 
     public CWeapon changeWeapon()
     {
-        print("do");
-        if (secondWeaponIndex != 0)
+        if (secondWeaponIndex != 0 && swordIsActive)
         {
-            print("posle");
             foreach (Transform child in weaponHolder)
                 child.gameObject.SetActive(false);
 
@@ -31,37 +30,40 @@ public class WeaponSelector : MonoBehaviour
 
     public CWeapon selectWeaponByIndex(int ind)
     {
-        print(ind);
-        foreach (Transform child in weaponHolder)
-            child.gameObject.SetActive(false);
+        if (swordIsActive)
+        {
+            foreach (Transform child in weaponHolder)
+                child.gameObject.SetActive(false);
 
-        if (ind == 0)
-        {
-            selectedWeaponIndex = 0;
-            weaponHolder.GetChild(selectedWeaponIndex).gameObject.SetActive(true);
+            if (ind == 0)
+            {
+                selectedWeaponIndex = 0;
+                weaponHolder.GetChild(selectedWeaponIndex).gameObject.SetActive(true);
+            }
+            if (ind == 1 && secondWeaponIndex != 0)
+            {
+                selectedWeaponIndex = secondWeaponIndex;
+                weaponHolder.GetChild(selectedWeaponIndex).gameObject.SetActive(true);
+            }
+            return weaponHolder.GetChild(selectedWeaponIndex).gameObject.GetComponent<CWeapon>();
         }
-        if (ind == 1 && secondWeaponIndex != 0)
-        {
-            selectedWeaponIndex = secondWeaponIndex;
-            weaponHolder.GetChild(selectedWeaponIndex).gameObject.SetActive(true);
-        }
-        return weaponHolder.GetChild(selectedWeaponIndex).gameObject.GetComponent<CWeapon>();
+        return null;
+    }
+
+    public void setActiveSword()
+    {
+        swordIsActive = true;
     }
 
     public CWeapon getSelectedWeapon()
     {
+        if (!swordIsActive)
+            return null;
         return weaponHolder.GetChild(selectedWeaponIndex).gameObject.GetComponent<CWeapon>();
     }
 
     public void changeSecondWeapon(int weaponIndex)
     {
         secondWeaponIndex = weaponIndex;
-        print("1");
-    }
-
-    public void selectSword()
-    {
-        print("2");
-        selectWeaponByIndex(0);
     }
 }

@@ -10,9 +10,12 @@ public class WeaponScript : MonoBehaviour
 
     public void setWeapon(CWeapon selectedWeapon)
     {
-        fireEnd();
-        currentWeapon = selectedWeapon;
-        currentWeapon.weaponEffect.Stop();
+        if (selectedWeapon != null)
+        {
+            fireEnd();
+            currentWeapon = selectedWeapon;
+            currentWeapon.weaponEffect.Stop();
+        }
     }
 
     public void fireStart()

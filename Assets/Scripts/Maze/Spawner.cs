@@ -276,7 +276,9 @@ public class Spawner : MonoBehaviour
     public Camera cam;
     public GameObject mazeHandler;
 
-    public GameObject portal;
+    public GameObject exit_portal;
+    public GameObject enter_portal;
+    public GameObject enter_point;
 
     public Cell CellPrefab;
     public Vector2 Cellsize = new Vector2(1, 1);
@@ -290,14 +292,18 @@ public class Spawner : MonoBehaviour
     public TextMeshProUGUI algorithmText;
 
     public GameObject exit_pref;
+    public GameObject enter_pref;
 
     public void GenerateMaze()
     {
         bool exit = false;
         Destroy(exit_pref);
+        Destroy(enter_pref);
         foreach (Transform child in mazeHandler.transform)
             GameObject.Destroy(child.gameObject);
-        
+
+
+        enter_pref = Instantiate(enter_portal, new Vector3(44.5f, 240.51f, 25.85f), Quaternion.identity);
 
         Generator generator = new Generator(UseWilsonAlgorithm);
         Maze maze = generator.GenerateMaze(Width, Height);
@@ -330,13 +336,14 @@ public class Spawner : MonoBehaviour
                 {
                     c.Distance.text = "0";
                     c.Distance.color = Color.red;
+                    enter_point.transform.position = new Vector3(10 + 10 * x, 0, 10 * z);
                 }
 
                 if (maze.distances[x, z] == 13 && !exit)
                 {
                     c.Distance.color = Color.green;
                     exit = true;
-                    exit_pref = Instantiate(portal, new Vector3(10 + 10*x, 0, 10*z), Quaternion.identity);
+                    exit_pref = Instantiate(exit_portal, new Vector3(10 + 10*x, 0, 10*z), Quaternion.identity);
                 }
 
                 c.transform.parent = mazeHandler.transform;

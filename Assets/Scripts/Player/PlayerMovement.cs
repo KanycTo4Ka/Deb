@@ -50,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void modifyMoveSpeed(float amount)
     {
-        curMoveSpeed = amount * defaultMoveSpeed;
+        curMoveSpeed = amount * curMoveSpeed;
+    }
+
+    public float getMoveSpeed()
+    {
+        return curMoveSpeed;
     }
 }

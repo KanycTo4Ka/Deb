@@ -90,6 +90,16 @@ public class Health : MonoBehaviour
 
     public void modifyMaxHealth(float amount)
     {
-        curMaxHealth = amount * defaulMaxHealth;
+        curMaxHealth = amount * curMaxHealth;
+    }
+
+    public float getCurrentHealth()
+    {
+        return curHealth;
+    }
+
+    public float getMaxHealth()
+    {
+        return curMaxHealth;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
@@ -294,6 +295,8 @@ public class Spawner : MonoBehaviour
     public GameObject exit_pref;
     public GameObject enter_pref;
 
+    public NavMeshSurface navMeshSurface;
+
     public void GenerateMaze()
     {
         bool exit = false;
@@ -351,6 +354,6 @@ public class Spawner : MonoBehaviour
         }
 
         cam.transform.position = new Vector3((Width * Cellsize.x) / 2, Mathf.Max(Width, Height) * 8, (Height * Cellsize.y) / 2);
+        navMeshSurface.BuildNavMesh();
     }
 }
-// new Vector3 (52.42935 * x, 0 , 0.40559 * z)

@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WeaponSelector : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class WeaponSelector : MonoBehaviour
     int secondWeaponIndex = 0;
     bool swordIsActive = false;
 
+    public UnityEvent weaponChange;
+
     public CWeapon changeWeapon()
     {
         if (secondWeaponIndex != 0 && swordIsActive)
@@ -18,9 +21,14 @@ public class WeaponSelector : MonoBehaviour
                 child.gameObject.SetActive(false);
 
             if (selectedWeaponIndex == 0)
+            {
+                weaponChange.Invoke();
                 selectedWeaponIndex = secondWeaponIndex;
+            }
             else
                 selectedWeaponIndex = 0;
+
+            
 
             weaponHolder.GetChild(selectedWeaponIndex).gameObject.SetActive(true);
             return weaponHolder.GetChild(selectedWeaponIndex).gameObject.GetComponent<CWeapon>();
@@ -44,6 +52,7 @@ public class WeaponSelector : MonoBehaviour
             {
                 selectedWeaponIndex = secondWeaponIndex;
                 weaponHolder.GetChild(selectedWeaponIndex).gameObject.SetActive(true);
+                weaponChange.Invoke();
             }
             return weaponHolder.GetChild(selectedWeaponIndex).gameObject.GetComponent<CWeapon>();
         }
@@ -53,6 +62,7 @@ public class WeaponSelector : MonoBehaviour
     public void setActiveSword()
     {
         swordIsActive = true;
+        selectWeaponByIndex(0);
     }
 
     public CWeapon getSelectedWeapon()

@@ -1,30 +1,52 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class PlayerScript : MonoBehaviour
 {
+    [HideInInspector]
+    public float soulCount;
+    float defaultModifier = 1;
+    float soulModifier;
+
     public WeaponSelector weaponSelector;
     public WeaponScript weaponScript;
     public InteractorScript interactorScript;
 
     public int numberOfWeapons = 2;
 
+    public UnityEvent soulCountChange;
+
+    public InputAction attackAction;
+
+    private void Start()
+    {
+        soulModifier = defaultModifier;
+        attackAction.started += ctx => weaponScript.fireStart();
+        attackAction.canceled += ctx => weaponScript.fireEnd();
+    }
+
+    private void OnEnable()
+    {
+        attackAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        attackAction.Disable();
+    }
+
     private void OnScrollWheel(InputValue value)
     {
         weaponScript.setWeapon(weaponSelector.changeWeapon());
     }
 
-    private void OnAttack(InputValue value)
+    private void OnAttack()
     {
         if (weaponSelector.getSelectedWeapon() != null)
-        {
-            if (value.isPressed)
-                weaponScript.fireStart();
-            else
-                weaponScript.fireEnd();
-        }
+            weaponScript.fireStart();
     }
 
     private void OnNext(InputValue value)
@@ -46,5 +68,35 @@ public class PlayerScript : MonoBehaviour
             else
                 interactorScript.interactable.interact(GetComponent<PlayerScript>());
         }
+    }
+
+    public void addSoul()
+    {
+        soulCount += soulModifier;
+        soulCountChange.Invoke();
+    }
+
+    public bool removeSoul(int amount)
+    {
+        soulCount -= amount;
+        if (soulCount < 0)
+            return false;
+        soulCountChange.Invoke();
+        return true;
+    }
+
+    public void modifySoulModifier(float amount)
+    {
+        soulModifier *= amount;
+    }
+
+    public void setDefault()
+    {
+        soulModifier = defaultModifier;
+    }
+
+    public float getSoul()
+    {
+        return soulCount;
     }
 }

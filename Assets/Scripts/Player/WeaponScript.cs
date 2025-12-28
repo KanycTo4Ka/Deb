@@ -20,6 +20,10 @@ public class WeaponScript : MonoBehaviour
 
     public void fireStart()
     {
+        if (currentWeapon == null)
+            return;
+
+        currentWeapon.GetComponent<Animator>().SetBool("isFire", true);
         isFiring = true;
         if (currentWeapon.weaponEffect != null && currentWeapon.canFire)
             currentWeapon.weaponEffect.Play();
@@ -27,6 +31,10 @@ public class WeaponScript : MonoBehaviour
 
     public void fireEnd()
     {
+        if (currentWeapon == null)
+            return;
+
+        currentWeapon.GetComponent<Animator>().SetBool("isFire", false);
         isFiring = false;
         if (currentWeapon != null)
             if (currentWeapon.weaponEffect != null)

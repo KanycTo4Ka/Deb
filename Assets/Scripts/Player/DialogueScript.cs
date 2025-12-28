@@ -18,6 +18,8 @@ public class DialogueScript : MonoBehaviour, IInteractable
 
     [SerializeField] Spawner spawner;
 
+    [SerializeField] Transform Player;
+
     public string getDescription()
     {
         return description;
@@ -25,24 +27,33 @@ public class DialogueScript : MonoBehaviour, IInteractable
 
     public void interact(PlayerScript player)
     {
+        Player.GetComponent<PlayerRotation>().enabled = false;
         dialoguePanel.SetActive(true);
         messageText.text = messages[Random.Range(0, messages.Count)];
     }
 
-    public void onDialogueEnd(PlayerScript player)
+    public void onDialogueEnd()
     {
         dialoguePanel.SetActive(false);
+        Player.GetComponent<PlayerRotation>().enabled = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             dialoguePanel.SetActive(false);
+            Player.GetComponent<PlayerRotation>().enabled = true;
+        }
     }
 
     public void generateMaze()
     {
         if (true)
+        {
             spawner.GenerateMaze();
+            dialoguePanel.SetActive(false);
+            Player.GetComponent<PlayerRotation>().enabled = true;
+        }
     }
 }

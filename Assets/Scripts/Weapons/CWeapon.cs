@@ -11,8 +11,9 @@ public abstract class CWeapon : MonoBehaviour, IWeapon
     [HideInInspector]
     public bool canFire = true;
     public ParticleSystem weaponEffect;
+    public WeaponScript weaponScript;
 
-    private void Start()
+    protected virtual void Start()
     {
         curDamage = defaultDamage;
         if (weaponEffect == null) return;
@@ -49,6 +50,11 @@ public abstract class CWeapon : MonoBehaviour, IWeapon
 
     public void modifyDamage(float amount)
     {
-        curDamage = amount * defaultDamage;
+        curDamage *= amount;
+    }
+
+    public float getDamage()
+    {
+        return curDamage;
     }
 }

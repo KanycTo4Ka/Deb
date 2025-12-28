@@ -1,4 +1,6 @@
+using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(TracerSystem))]
 [RequireComponent(typeof(MachineGunLogic))]
@@ -6,9 +8,11 @@ public class CMachineGun : CWeapon
 {
     TracerSystem tracerSystem;
     MachineGunLogic machinegunLogic;
+    
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         tracerSystem = GetComponent<TracerSystem>();
         machinegunLogic = GetComponent<MachineGunLogic>();
     }

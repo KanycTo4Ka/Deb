@@ -7,6 +7,8 @@ public class Ammunition : MonoBehaviour
     [SerializeField] public List<WeaponAmmo> ammoList;
     public Dictionary<WeaponTypes, int> ammoDictionary;
 
+    [SerializeField] WeaponSelector weaponSelector;
+
     public UnityEvent onAmmoChange;
 
     public void listToDictionary()
@@ -18,7 +20,7 @@ public class Ammunition : MonoBehaviour
                 ammoDictionary.Add(ammo.type, ammo.ammo);
     }
 
-    void Start()
+    void Awake()
     {
         listToDictionary();
         onAmmoChange?.Invoke();
@@ -53,6 +55,24 @@ public class Ammunition : MonoBehaviour
             return false;
 
         ammoDictionary[type] += amount;
+        onAmmoChange?.Invoke();
+
+        return true;
+    }
+
+    public int getAmmoCount(WeaponTypes type)
+    {
+        if (!ammoDictionary.ContainsKey(type)) 
+            return 0;
+        return ammoDictionary[type];
+    }
+
+    public bool setAmmo(WeaponTypes type, int amount)
+    {
+        if (ammoDictionary.ContainsKey(type) == false)
+            return false;
+
+        ammoDictionary[type] = amount;
         onAmmoChange?.Invoke();
 
         return true;

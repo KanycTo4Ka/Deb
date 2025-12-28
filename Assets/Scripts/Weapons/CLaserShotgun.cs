@@ -9,8 +9,10 @@ public class CLaserShotgun : CWeapon
     TracerSystem tracerSystem;
     ShotgunLogic shotgunLogic;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         tracerSystem = GetComponent<TracerSystem>();
         shotgunLogic = GetComponent<ShotgunLogic>();
     }

@@ -339,7 +339,7 @@ public class Spawner : MonoBehaviour
                 {
                     c.Distance.text = "0";
                     c.Distance.color = Color.red;
-                    enter_point.transform.position = new Vector3(10 + 10 * x, 0, 10 * z);
+                    enter_point.transform.position = new Vector3(10 + 10 * x, 1, 10 * z);
                 }
 
                 if (maze.distances[x, z] == 13 && !exit)

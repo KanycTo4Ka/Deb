@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.AI.Navigation;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
@@ -353,7 +355,18 @@ public class Spawner : MonoBehaviour
             }
         }
 
+
+
         cam.transform.position = new Vector3((Width * Cellsize.x) / 2, Mathf.Max(Width, Height) * 8, (Height * Cellsize.y) / 2);
+
+        StartCoroutine(buildNavMesh());
+    }
+
+    public IEnumerator buildNavMesh()
+    {
+        print("uuu");
+        yield return new WaitForSeconds(1);
+        
         navMeshSurface.BuildNavMesh();
     }
 }

@@ -7,12 +7,11 @@ public class EnemySpawner : MonoBehaviour
     List<EnemyFactory> enemyFactories = new List<EnemyFactory>();
     List<IEnemy> enemies = new List<IEnemy>();
 
+    [Range(1, 100)]
+    [SerializeField] int enemiesCount = 50;
+
     //[SerializeField] ScoreScript scoreScript;
     [SerializeField] Transform player;
-
-    float timer = 0;
-    [Range(0.5f, 5f)]
-    [SerializeField] float spawnInterval; 
 
     public IEnemy getRandomEnemy()
     {
@@ -30,19 +29,23 @@ public class EnemySpawner : MonoBehaviour
         return enemyFactories[Random.Range(0, enemyFactories.Count)].getEnemy();
     }
 
-    private void FixedUpdate()
+    public void spawnEnemies()
     {
-        timer += 0.01f;
-        if (timer >= spawnInterval)
+        for (int i = 0; i < enemiesCount; i++)
         {
-            IEnemy enemy = getRandomEnemy();
-            Vector3 spawnPosition = new Vector3(transform.position.x + Random.Range(-10, 10), 1.75f, transform.position.z + Random.Range(-10, 10));
-            enemy.positionAndRotation(spawnPosition, Quaternion.identity);
-            //enemy.EnemyHP.onDeath.AddListener(scoreScript.scoreUp);
-            enemies.Add(enemy);
-            timer = 0;
+            if (Random.Range(0, 3) == 2)
+            {
+                IEnemy enemy = getRandomEnemy();
+                Vector3 spawnPosition = new Vector3(transform.position.x + Random.Range(-10, 10), 1.75f, transform.position.z + Random.Range(-10, 10));
+                enemy.positionAndRotation(spawnPosition, Quaternion.identity);
+                //enemy.EnemyHP.onDeath.AddListener(scoreScript.scoreUp);
+                enemies.Add(enemy);
+            }
         }
+    }
 
+    private void Update()
+    {
         foreach (var enem in enemies)
         {
             enem.Player = player;

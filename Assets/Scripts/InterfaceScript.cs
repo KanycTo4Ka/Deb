@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class InterfaceScript : MonoBehaviour
 {
-    [SerializeField] Transform Player;
-    [SerializeField] Transform enemySpawner;
-
-    Health health;
-    PlayerMovement speed;
-    WeaponSelector weaponSelector;
-    Ammunition ammunition;
-    PlayerScript playerScript;
+    [SerializeField] Health health;
+    [SerializeField] PlayerMovement speed;
+    [SerializeField] WeaponSelector weaponSelector;
+    [SerializeField] Ammunition ammunition;
+    [SerializeField] PlayerScript playerScript;
 
     [SerializeField] TMP_Text healthText;
     [SerializeField] TMP_Text speedText;
@@ -23,12 +20,6 @@ public class InterfaceScript : MonoBehaviour
 
     void Start()
     {
-        health = Player.GetComponent<Health>();
-        speed = Player.GetComponent<PlayerMovement>();
-        weaponSelector = Player.GetComponent<WeaponSelector>();
-        ammunition = Player.GetComponent<Ammunition>();
-        playerScript = Player.GetComponent<PlayerScript>();
-
         healthText.text = health.getCurrentHealth().ToString() + "/" + health.getMaxHealth().ToString() + " + 0";
         speedText.text = speed.getMoveSpeed() + " + 0";
         armorText.text = "0";

@@ -3014,6 +3014,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_ActionId: c95b2375-e6d9-4b88-9c4c-c5e76515df4b
+--- !u!198 &517545458 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4021103657954561960, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
+  m_PrefabInstance: {fileID: 498502965}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &535840137
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,7 +3900,8 @@ Transform:
   m_LocalPosition: {x: -52.42935, y: 0, z: -0.40559}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1533143889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &650180061
@@ -3928,7 +3934,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 1
   m_VoxelSize: 0.01
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 56644b992b1edb14e9bffdb4d631b9cf, type: 2}
+  m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
 --- !u!114 &651940877
 MonoBehaviour:
@@ -4996,8 +5002,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed698dc7bd655cb41bc402df502eb541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InterfaceScript
-  Player: {fileID: 332493871}
-  enemySpawner: {fileID: 0}
+  health: {fileID: 332493874}
+  speed: {fileID: 332493866}
+  weaponSelector: {fileID: 332493876}
+  ammunition: {fileID: 332493875}
+  playerScript: {fileID: 332493878}
   healthText: {fileID: 1496258747}
   speedText: {fileID: 1779844910}
   armorText: {fileID: 47895802}
@@ -6005,6 +6014,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 199669651405181594, guid: 41236ddb97b001d499cadd3503c086dc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1788446122}
+    - targetCorrespondingSourceObject: {fileID: 199669651405181594, guid: 41236ddb97b001d499cadd3503c086dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1788446128}
+    - targetCorrespondingSourceObject: {fileID: 199669651405181594, guid: 41236ddb97b001d499cadd3503c086dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1788446127}
+    - targetCorrespondingSourceObject: {fileID: 199669651405181594, guid: 41236ddb97b001d499cadd3503c086dc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1788446126}
   m_SourcePrefab: {fileID: 100100000, guid: 41236ddb97b001d499cadd3503c086dc, type: 3}
 --- !u!4 &1150706287 stripped
 Transform:
@@ -7486,8 +7504,8 @@ MonoBehaviour:
     probability: 80
   - factory: {fileID: 5453809389702787957, guid: a527b94b9d552f644ae6393fa87eb3f5, type: 3}
     probability: 20
+  enemiesCount: 50
   player: {fileID: 332493871}
-  spawnInterval: 3
 --- !u!4 &1533143889
 Transform:
   m_ObjectHideFlags: 0
@@ -7496,12 +7514,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533143887}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.31149, y: 240.51, z: 42.35928}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 107.4, y: 0, z: 45.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 650180060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1580843379
 PrefabInstance:
@@ -8467,6 +8485,55 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1788446126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788446118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e8d668862efc804cabc143ef78dc933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CPistol
+  firePoint: {fileID: 1073468269}
+  fireRate: 5
+  defaultDamage: 0
+  curDamage: 0
+  canFire: 1
+  weaponEffect: {fileID: 517545458}
+  weaponScript: {fileID: 332493877}
+--- !u!114 &1788446127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788446118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dee3eeabf3b192e4bb31fa3cd971d440, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PistolLogic
+  enemy:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &1788446128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788446118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77bb680e0782a694c821f5d8183a3427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TracerSystem
+  tracerPrefab: {fileID: 1469095995250653758, guid: fbc085d718957fe489c6f8113a3509f5, type: 3}
+  poolSize: 5
+  maxPoolSize: 6
 --- !u!114 &1823281251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10940,5 +11007,4 @@ SceneRoots:
   - {fileID: 847293213}
   - {fileID: 643489736}
   - {fileID: 254908621}
-  - {fileID: 1533143889}
   - {fileID: 332493871}

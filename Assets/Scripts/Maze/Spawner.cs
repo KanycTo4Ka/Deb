@@ -355,8 +355,6 @@ public class Spawner : MonoBehaviour
             }
         }
 
-
-
         cam.transform.position = new Vector3((Width * Cellsize.x) / 2, Mathf.Max(Width, Height) * 8, (Height * Cellsize.y) / 2);
 
         StartCoroutine(buildNavMesh());
@@ -364,7 +362,6 @@ public class Spawner : MonoBehaviour
 
     public IEnumerator buildNavMesh()
     {
-        print("uuu");
         yield return new WaitForSeconds(1);
         
         navMeshSurface.BuildNavMesh();

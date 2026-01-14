@@ -31,7 +31,7 @@ public abstract class CWeapon : MonoBehaviour, IWeapon
 
     public abstract WeaponTypes getWeaponType();
 
-    IEnumerator coolDown()
+    public IEnumerator coolDown()
     {
         yield return new WaitForSeconds(1/fireRate);
         canFire = true;

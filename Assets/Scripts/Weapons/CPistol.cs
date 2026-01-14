@@ -7,7 +7,6 @@ public class CPistol : CWeapon
     TracerSystem tracerSystem;
     PistolLogic pistolLogic;
 
-
     protected override void Start()
     {
         base.Start();

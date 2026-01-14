@@ -20,28 +20,22 @@ public class InterfaceScript : MonoBehaviour
 
     void Start()
     {
-        healthText.text = health.getCurrentHealth().ToString() + "/" + health.getMaxHealth().ToString() + " + 0";
-        speedText.text = speed.getMoveSpeed() + " + 0";
-        armorText.text = "0";
-        damageText.text = "0";
-        soulModifierText.text = "0";
-        soulCountText.text = "0";
-        ammoCountText.text = "0";
+        
     }
 
     public void updateHealth()
     {
-        healthText.text = health.getCurrentHealth().ToString() + "/" + health.getMaxHealth().ToString() + " + 0";
+        healthText.text = health.getCurrentHealth().ToString() + "/" + health.getMaxHealth().ToString();
     }
 
     public void updateSpeed()
     {
-
+        speedText.text = speed.getMoveSpeed().ToString();
     }
 
     public void updateArmor()
     {
-
+        armorText.text = health.getArmor().ToString();
     }
 
     public void updateDamage()
@@ -51,13 +45,14 @@ public class InterfaceScript : MonoBehaviour
 
     public void updateSoulModifier()
     {
-        soulCountText.text = playerScript.getSoul().ToString();
+        soulModifierText.text = playerScript.getSoulModifier().ToString();
     }
 
     public void updateSoul()
     {
-
+        soulCountText.text = playerScript.getSoul().ToString();
     }
+
     public void updateAmmo()
     {
         ammoCountText.text = ammunition.getAmmoCount(weaponSelector.getSelectedWeapon().getWeaponType()).ToString();

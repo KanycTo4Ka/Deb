@@ -48,7 +48,7 @@ public abstract class AbstractEnemy : MonoBehaviour, IEnemy
     {
         while (true)
         {
-            yield return new WaitForSeconds(1 / updatesPerSecond);
+            yield return new WaitForSeconds(1f / updatesPerSecond);
 
             updateState();
 

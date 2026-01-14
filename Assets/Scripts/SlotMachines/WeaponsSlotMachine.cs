@@ -5,15 +5,20 @@ using UnityEngine;
 public class WeaponsSlotMachine : AbstractSlotMachine
 {
     [SerializeField] WeaponSelector weaponSelector;
+
     [SerializeField] TMP_Text ammoCountText;
     [SerializeField] Ammunition ammunition;
     int ammoCount;
 
     public override void interact(PlayerScript player)
     {
-        animator.SetTrigger("pulled");
-        startSpin();
-        StartCoroutine(StopAfterDelay(1f));
+        if (player.getSoul() >= 1)
+        {
+            player.removeSoul(1);
+            animator.SetTrigger("pulled");
+            startSpin();
+            StartCoroutine(StopAfterDelay(1f));
+        }
     }
 
     public override void stopEvent()

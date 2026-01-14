@@ -15,10 +15,15 @@ public class DialogueScript : MonoBehaviour, IInteractable
 
     [SerializeField] GameObject dialoguePanel;
     [SerializeField] TMP_Text messageText;
+    [SerializeField] TMP_Text priceText;
 
     [SerializeField] Spawner spawner;
 
     [SerializeField] Transform Player;
+
+    ScriptLocker scriptLocker;
+
+    int soulPrice = 0;
 
     public string getDescription()
     {
@@ -27,13 +32,15 @@ public class DialogueScript : MonoBehaviour, IInteractable
 
     public void interact(PlayerScript player)
     {
-        Player.GetComponent<PlayerRotation>().enabled = false;
+        scriptLocker.lockScripts();
         dialoguePanel.SetActive(true);
+        priceText.text = "Требуется душ: " + soulPrice.ToString();
         messageText.text = messages[Random.Range(0, messages.Count)];
     }
 
     public void onDialogueEnd()
     {
+        scriptLocker.unlockScripts();
         dialoguePanel.SetActive(false);
         Player.GetComponent<PlayerRotation>().enabled = true;
     }
@@ -43,17 +50,23 @@ public class DialogueScript : MonoBehaviour, IInteractable
         if (other.CompareTag("Player"))
         {
             dialoguePanel.SetActive(false);
-            Player.GetComponent<PlayerRotation>().enabled = true;
+            scriptLocker.unlockScripts();
         }
     }
 
     public void generateMaze()
     {
-        if (true)
+        if (Player.GetComponent<PlayerScript>().getSoul() >= soulPrice)
         {
+            Player.GetComponent<PlayerScript>().removeSoul(soulPrice);
+            soulPrice++;
             spawner.GenerateMaze();
             dialoguePanel.SetActive(false);
-            Player.GetComponent<PlayerRotation>().enabled = true;
+            scriptLocker.unlockScripts();
+        }
+        else
+        {
+            dialoguePanel.SetActive(false);
         }
     }
 }

@@ -12,13 +12,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2433282508523921356, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2433282508531839530, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
       propertyPath: m_Intensity
-      value: 0
+      value: 9.700587
       objectReference: {fileID: 0}
     - target: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
       propertyPath: m_Name
@@ -329,7 +333,7 @@ MonoBehaviour:
   enemyHP: {fileID: 7139429941339197378}
   updatesPerSecond: 10
   rotationSpeed: 120
-  soulPrefab: {fileID: 1801439946673085447, guid: a52481405554c594780d8a33fe47d60f, type: 3}
+  soulPrefab: {fileID: 5362350557265231944, guid: a52481405554c594780d8a33fe47d60f, type: 3}
   attackRange: 8.35
   damage: 68
   explosionEffect: {fileID: 8023658201937793935}
@@ -347,6 +351,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   defaulMaxHealth: 26
   onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onArmorChange:
     m_PersistentCalls:
       m_Calls: []
   spawnOnDeath:
@@ -394,8 +401,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  totalScorePanel: {fileID: 0}
-  totalScoreText: {fileID: 0}
 --- !u!195 &-842456912134685847
 NavMeshAgent:
   m_ObjectHideFlags: 0

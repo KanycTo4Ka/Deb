@@ -18,12 +18,14 @@ public class PlayerScript : MonoBehaviour
     public int numberOfWeapons = 2;
 
     public UnityEvent soulCountChange;
+    public UnityEvent soulModifierChange;
 
     public InputAction attackAction;
 
     private void Start()
     {
         soulModifier = defaultModifier;
+        soulModifierChange.Invoke();
         attackAction.started += ctx => weaponScript.fireStart();
         attackAction.canceled += ctx => weaponScript.fireEnd();
     }
@@ -70,33 +72,45 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    public void addSoul()
+    public void addSoul(int amount)
+    {
+        soulCount += amount;
+        soulCountChange.Invoke();
+    }
+
+    public void pickUpSoul()
     {
         soulCount += soulModifier;
         soulCountChange.Invoke();
     }
 
-    public bool removeSoul(int amount)
+    public void removeSoul(int amount)
     {
         soulCount -= amount;
         if (soulCount < 0)
-            return false;
+            soulCount = 0;
         soulCountChange.Invoke();
-        return true;
     }
 
     public void modifySoulModifier(float amount)
     {
         soulModifier *= amount;
+        soulModifierChange.Invoke();
     }
 
-    public void setDefault()
+    public void setToDefaultSoulModifier()
     {
         soulModifier = defaultModifier;
+        soulModifierChange.Invoke();
     }
 
     public float getSoul()
     {
         return soulCount;
+    }
+
+    public float getSoulModifier()
+    {
+        return soulModifier;
     }
 }

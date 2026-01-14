@@ -23,7 +23,6 @@ public class Ammunition : MonoBehaviour
     void Awake()
     {
         listToDictionary();
-        onAmmoChange?.Invoke();
     }
 
     public bool checkAmmo(WeaponTypes type)

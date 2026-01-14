@@ -11,7 +11,7 @@ public class SoulScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        playerScript.addSoul();
+        playerScript.pickUpSoul();
         Destroy(gameObject);
     }
 }

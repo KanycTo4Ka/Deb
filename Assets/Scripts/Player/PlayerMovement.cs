@@ -1,13 +1,15 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    [Range(1, 100)] float defaultMoveSpeed = 10;
-    float curMoveSpeed;
+    [Range(1f, 100f)] float defaultMoveSpeed = 10f;
+    [HideInInspector]
+    public float curMoveSpeed = 0f;
     [SerializeField]
-    [Range(1, 100)] float jumpForce = 5;
+    [Range(1f, 100f)] float jumpForce = 5;
     [SerializeField] CharacterController controller;
 
     [SerializeField] float gravity = -9.81f;
@@ -15,9 +17,12 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity = Vector3.zero;
     bool grounded = true;
 
+    public UnityEvent speedChange;
+
     private void Start()
     {
         curMoveSpeed = defaultMoveSpeed;
+        speedChange.Invoke();
     }
 
     private void OnMove(InputValue movementValue)
@@ -46,11 +51,13 @@ public class PlayerMovement : MonoBehaviour
     public void setToDefault()
     {
         curMoveSpeed = defaultMoveSpeed;
+        speedChange.Invoke();
     }
 
     public void modifyMoveSpeed(float amount)
     {
         curMoveSpeed = amount * curMoveSpeed;
+        speedChange.Invoke();
     }
 
     public float getMoveSpeed()

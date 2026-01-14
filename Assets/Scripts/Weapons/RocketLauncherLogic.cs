@@ -3,19 +3,13 @@ using UnityEngine;
 public class RocketLauncherLogic : MonoBehaviour
 {
     [SerializeField] LayerMask enemy;
+    [SerializeField] GameObject rocketPrefab;
 
     public void shot(Transform firePoint, float damage)
     {
-        RaycastHit hit;
+        GameObject rocketObj = Instantiate(rocketPrefab, firePoint.position, firePoint.rotation);
 
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, 1000f, enemy))
-        {
-            Health enemyHP = hit.transform.GetComponent<Health>();
-            if (enemyHP != null)
-            {
-                enemyHP.hpDecrease(damage);
-            }
-        }
-
+        RocketScript rocket = rocketObj.GetComponent<RocketScript>();
+        rocket.Init(this.gameObject.GetComponent<CWeapon>());
     }
 }

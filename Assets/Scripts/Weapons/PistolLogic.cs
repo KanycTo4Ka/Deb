@@ -16,6 +16,5 @@ public class PistolLogic : MonoBehaviour
                 enemyHP.hpDecrease(damage);
             }
         }
-        
     }
 }

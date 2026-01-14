@@ -283,6 +283,8 @@ public class Spawner : MonoBehaviour
     public GameObject enter_portal;
     public GameObject enter_point;
 
+    public Maze maze;
+
     public Cell CellPrefab;
     public Vector2 Cellsize = new Vector2(1, 1);
 
@@ -296,6 +298,8 @@ public class Spawner : MonoBehaviour
 
     public GameObject exit_pref;
     public GameObject enter_pref;
+
+    [SerializeField] EnemySpawner enemySpawner;
 
     public NavMeshSurface navMeshSurface;
 
@@ -311,7 +315,7 @@ public class Spawner : MonoBehaviour
         enter_pref = Instantiate(enter_portal, new Vector3(44.5f, 240.51f, 25.85f), Quaternion.identity);
 
         Generator generator = new Generator(UseWilsonAlgorithm);
-        Maze maze = generator.GenerateMaze(Width, Height);
+        maze = generator.GenerateMaze(Width, Height);
 
         for (int x = 0; x < maze.cells.GetLength(0); x++)
         {
@@ -357,13 +361,16 @@ public class Spawner : MonoBehaviour
 
         cam.transform.position = new Vector3((Width * Cellsize.x) / 2, Mathf.Max(Width, Height) * 8, (Height * Cellsize.y) / 2);
 
-        StartCoroutine(buildNavMesh());
+        StartCoroutine(GenerateWithEnemies());
     }
 
-    public IEnumerator buildNavMesh()
+    IEnumerator GenerateWithEnemies()
     {
-        yield return new WaitForSeconds(1);
-        
+        yield return new WaitForEndOfFrame();
         navMeshSurface.BuildNavMesh();
+
+        yield return new WaitForEndOfFrame();
+
+        enemySpawner.SpawnEnemies(maze, Cellsize, mazeHandler.transform);
     }
 }

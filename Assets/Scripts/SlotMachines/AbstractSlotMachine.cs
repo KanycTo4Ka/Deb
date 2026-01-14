@@ -45,9 +45,13 @@ public abstract class AbstractSlotMachine : MonoBehaviour, ISlotMachine, IIntera
 
     public virtual void interact(PlayerScript player)
     {
-        animator.SetTrigger("pulled");
-        startSpin();
-        StartCoroutine(StopAfterDelay(3f));
+        if (player.getSoul() >= 1)
+        {
+            player.removeSoul(1);
+            animator.SetTrigger("pulled");
+            startSpin();
+            StartCoroutine(StopAfterDelay(3f));
+        }
     }
 
     public virtual void startSpin()

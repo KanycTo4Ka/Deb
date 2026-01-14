@@ -10,17 +10,18 @@ public class Health : MonoBehaviour
     float curMaxHealth;
     float curHealth;
 
+    float armor = 0;
+
     public UnityEvent<float, float> onHealthChange;
+    public UnityEvent onArmorChange;
 
     public UnityEvent<Vector3> spawnOnDeath;
     public UnityEvent onDeath;
     public UnityEvent onHitTaken;
 
-    [SerializeField] GameObject totalScorePanel;
-    [SerializeField] TMP_Text totalScoreText;
-    //[SerializeField] ScoreScript scoreScript;
-    
-    //ScriptLocker scriptLocker;
+    [SerializeField] GameObject gameOverPanel;
+
+    ScriptLocker scriptLocker;
 
     Animator animator;
 
@@ -29,7 +30,9 @@ public class Health : MonoBehaviour
         curMaxHealth = defaulMaxHealth;
         curHealth = curMaxHealth;
         onHealthChange?.Invoke(curHealth, curMaxHealth);
-        //scriptLocker = GetComponent<ScriptLocker>();
+        onArmorChange.Invoke();
+
+        scriptLocker = GetComponent<ScriptLocker>();
         animator = GetComponent<Animator>();
     }
 
@@ -56,8 +59,10 @@ public class Health : MonoBehaviour
         if (curHealth <= 0) return;
 
         onHitTaken?.Invoke();
-
-        curHealth = Mathf.FloorToInt(curHealth - amount);
+        if (gameObject.CompareTag("Player"))
+            curHealth = Mathf.FloorToInt(curHealth - amount * (1 - armor));
+        else
+            curHealth = Mathf.FloorToInt(curHealth - amount);
 
         if (curHealth < 0)
             curHealth = 0;
@@ -73,9 +78,8 @@ public class Health : MonoBehaviour
     public void death()
     {
         animator.SetTrigger("dead");
-        //scriptLocker.lockScripts();
-        //totalScorePanel.SetActive(true);
-        //totalScoreText.text = "»тоговый счЄт: " + scoreScript.getScore().ToString();
+        scriptLocker.lockScripts();
+        gameOverPanel.SetActive(true);
     }
 
     public void getHit()
@@ -83,14 +87,16 @@ public class Health : MonoBehaviour
         animator.SetTrigger("damaged");
     }
 
-    public void setToDefault()
+    public void setToDefaultMaxHealth()
     {
         curMaxHealth = defaulMaxHealth;
+        onHealthChange?.Invoke(curHealth, curMaxHealth);
     }
 
     public void modifyMaxHealth(float amount)
     {
-        curMaxHealth = amount * curMaxHealth;
+        curMaxHealth *= amount;
+        onHealthChange?.Invoke(curHealth, curMaxHealth);
     }
 
     public float getCurrentHealth()
@@ -101,5 +107,22 @@ public class Health : MonoBehaviour
     public float getMaxHealth()
     {
         return curMaxHealth;
+    }
+
+    public void setToDefaultArmor()
+    {
+        armor = 0;
+        onArmorChange.Invoke();
+    }
+
+    public void modifyArmor(float amount)
+    {
+        armor += amount;
+        onArmorChange.Invoke();
+    }
+
+    public float getArmor()
+    {
+        return armor;
     }
 }

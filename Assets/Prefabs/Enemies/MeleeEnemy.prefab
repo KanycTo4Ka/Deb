@@ -205,7 +205,7 @@ MonoBehaviour:
   enemyHP: {fileID: 3340381082080916052}
   updatesPerSecond: 10
   rotationSpeed: 120
-  soulPrefab: {fileID: 1801439946673085447, guid: a52481405554c594780d8a33fe47d60f, type: 3}
+  soulPrefab: {fileID: 5362350557265231944, guid: a52481405554c594780d8a33fe47d60f, type: 3}
   attackRange: 3.13
   defaultDamage: 1
 --- !u!114 &3340381082080916052
@@ -222,6 +222,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   defaulMaxHealth: 44.7
   onHealthChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onArmorChange:
     m_PersistentCalls:
       m_Calls: []
   spawnOnDeath:
@@ -269,8 +272,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  totalScorePanel: {fileID: 0}
-  totalScoreText: {fileID: 0}
 --- !u!195 &7484741265974334326
 NavMeshAgent:
   m_ObjectHideFlags: 0

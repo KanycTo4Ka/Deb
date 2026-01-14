@@ -14,7 +14,8 @@ public class WeaponScript : MonoBehaviour
         {
             fireEnd();
             currentWeapon = selectedWeapon;
-            currentWeapon.weaponEffect.Stop();
+            if (currentWeapon.weaponEffect != null)
+                currentWeapon.weaponEffect.Stop();
         }
     }
 

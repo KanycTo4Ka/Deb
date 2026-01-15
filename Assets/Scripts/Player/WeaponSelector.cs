@@ -47,6 +47,7 @@ public class WeaponSelector : MonoBehaviour
             {
                 selectedWeaponIndex = 0;
                 weaponHolder.GetChild(selectedWeaponIndex).gameObject.SetActive(true);
+                weaponChange.Invoke();
             }
             if (ind == 1 && secondWeaponIndex != 0)
             {

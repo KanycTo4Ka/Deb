@@ -1855,6 +1855,7 @@ GameObject:
   - component: {fileID: 332493875}
   - component: {fileID: 332493874}
   - component: {fileID: 332493878}
+  - component: {fileID: 332493879}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1901,7 +1902,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   defaultMoveSpeed: 10
   curMoveSpeed: 0
-  jumpForce: 2
   controller: {fileID: 332493865}
   gravity: -9.81
   speedChange:
@@ -2118,7 +2118,19 @@ MonoBehaviour:
         m_CallState: 2
   onArmorChange:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 864827432}
+        m_TargetAssemblyTypeName: InterfaceScript, Assembly-CSharp
+        m_MethodName: updateArmor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   spawnOnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -2140,7 +2152,7 @@ MonoBehaviour:
   onHitTaken:
     m_PersistentCalls:
       m_Calls: []
-  gameOverPanel: {fileID: 0}
+  gameOverPanel: {fileID: 219295426}
 --- !u!114 &332493875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2285,6 +2297,18 @@ MonoBehaviour:
       m_Action: Attack
       m_Flags: 0
     m_Flags: 0
+--- !u!114 &332493879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332493864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61d0fc4df915b4c4195ca96ec7820413, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptLocker
 --- !u!1 &343767241
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,11 +5086,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CSword
   firePoint: {fileID: 0}
   fireRate: 1
-  defaultDamage: 2
+  defaultDamage: 40
   curDamage: 0
   canFire: 1
   weaponEffect: {fileID: 0}
   weaponScript: {fileID: 332493877}
+  damageChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &784234357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7456,6 +7483,9 @@ MonoBehaviour:
   canFire: 1
   weaponEffect: {fileID: 1963571292}
   weaponScript: {fileID: 332493877}
+  damageChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1351768275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7517,6 +7547,9 @@ MonoBehaviour:
   canFire: 1
   weaponEffect: {fileID: 24904623}
   weaponScript: {fileID: 332493877}
+  damageChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1430298865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7609,6 +7642,7 @@ MonoBehaviour:
   priceText: {fileID: 261788821}
   spawner: {fileID: 650180059}
   Player: {fileID: 332493871}
+  scriptLocker: {fileID: 332493879}
 --- !u!1 &1467099604
 GameObject:
   m_ObjectHideFlags: 0
@@ -9087,6 +9121,9 @@ MonoBehaviour:
   canFire: 1
   weaponEffect: {fileID: 517545458}
   weaponScript: {fileID: 332493877}
+  damageChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1788446127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9474,6 +9511,9 @@ MonoBehaviour:
   canFire: 1
   weaponEffect: {fileID: 1635448649}
   weaponScript: {fileID: 332493877}
+  damageChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1879846251
 MonoBehaviour:
   m_ObjectHideFlags: 0

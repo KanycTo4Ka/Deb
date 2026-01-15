@@ -21,7 +21,7 @@ public class DialogueScript : MonoBehaviour, IInteractable
 
     [SerializeField] Transform Player;
 
-    ScriptLocker scriptLocker;
+    [SerializeField] ScriptLocker scriptLocker;
 
     int soulPrice = 0;
 
@@ -59,6 +59,7 @@ public class DialogueScript : MonoBehaviour, IInteractable
         if (Player.GetComponent<PlayerScript>().getSoul() >= soulPrice)
         {
             Player.GetComponent<PlayerScript>().removeSoul(soulPrice);
+            Player.GetComponent<Health>().changeHealth(200);
             soulPrice++;
             spawner.GenerateMaze();
             dialoguePanel.SetActive(false);
@@ -66,6 +67,7 @@ public class DialogueScript : MonoBehaviour, IInteractable
         }
         else
         {
+            Player.GetComponent<Health>().death();
             dialoguePanel.SetActive(false);
         }
     }

@@ -10,7 +10,7 @@ public class Health : MonoBehaviour
     float curMaxHealth;
     float curHealth;
 
-    float armor = 0;
+    float armor = 1;
 
     public UnityEvent<float, float> onHealthChange;
     public UnityEvent onArmorChange;
@@ -60,7 +60,7 @@ public class Health : MonoBehaviour
 
         onHitTaken?.Invoke();
         if (gameObject.CompareTag("Player"))
-            curHealth = Mathf.FloorToInt(curHealth - amount * (1 - armor));
+            curHealth = Mathf.FloorToInt(curHealth - amount / armor);
         else
             curHealth = Mathf.FloorToInt(curHealth - amount);
 
@@ -77,25 +77,26 @@ public class Health : MonoBehaviour
 
     public void death()
     {
-        animator.SetTrigger("dead");
         scriptLocker.lockScripts();
         gameOverPanel.SetActive(true);
     }
 
     public void getHit()
     {
-        animator.SetTrigger("damaged");
+        //animator.SetTrigger("damaged");
     }
 
     public void setToDefaultMaxHealth()
     {
         curMaxHealth = defaulMaxHealth;
+        changeHealth(200);
         onHealthChange?.Invoke(curHealth, curMaxHealth);
     }
 
     public void modifyMaxHealth(float amount)
     {
         curMaxHealth *= amount;
+        changeHealth(200);
         onHealthChange?.Invoke(curHealth, curMaxHealth);
     }
 
@@ -111,13 +112,13 @@ public class Health : MonoBehaviour
 
     public void setToDefaultArmor()
     {
-        armor = 0;
+        armor = 1;
         onArmorChange.Invoke();
     }
 
     public void modifyArmor(float amount)
     {
-        armor += amount;
+        armor *= amount;
         onArmorChange.Invoke();
     }
 

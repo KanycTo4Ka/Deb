@@ -59,8 +59,6 @@ public class WeaponsSlotMachine : AbstractSlotMachine
                 break;
 
         }
-        ammoCountText.text = ammoCount.ToString();
-        weaponSelector.selectWeaponByIndex(1);
-        ammunition.setAmmo(weaponSelector.getSelectedWeapon().getWeaponType(), ammoCount);
+        weaponSelector.selectWeaponByIndex(0);
     }
 }

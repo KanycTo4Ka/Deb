@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class CWeapon : MonoBehaviour, IWeapon
 {
@@ -12,6 +13,8 @@ public abstract class CWeapon : MonoBehaviour, IWeapon
     public bool canFire = true;
     public ParticleSystem weaponEffect;
     public WeaponScript weaponScript;
+
+    public UnityEvent damageChange;
 
     protected virtual void Start()
     {
@@ -46,11 +49,13 @@ public abstract class CWeapon : MonoBehaviour, IWeapon
     public void setToDefault()
     {
         curDamage = defaultDamage;
+        damageChange.Invoke();
     }
 
     public void modifyDamage(float amount)
     {
         curDamage *= amount;
+        damageChange.Invoke();
     }
 
     public float getDamage()

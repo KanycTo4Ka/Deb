@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2433282508531839530, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
       propertyPath: m_Intensity
-      value: 9.700587
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2433282508537954060, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
       propertyPath: m_Name
@@ -334,9 +334,12 @@ MonoBehaviour:
   updatesPerSecond: 10
   rotationSpeed: 120
   soulPrefab: {fileID: 5362350557265231944, guid: a52481405554c594780d8a33fe47d60f, type: 3}
-  attackRange: 8.35
+  attackRange: 4.8
   damage: 68
   explosionEffect: {fileID: 8023658201937793935}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &7139429941339197378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,7 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d85e0e62c4c5d4181e8d71d61dde24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  defaulMaxHealth: 26
+  defaulMaxHealth: 10.6
   onHealthChange:
     m_PersistentCalls:
       m_Calls: []
@@ -401,6 +404,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  gameOverPanel: {fileID: 0}
 --- !u!195 &-842456912134685847
 NavMeshAgent:
   m_ObjectHideFlags: 0

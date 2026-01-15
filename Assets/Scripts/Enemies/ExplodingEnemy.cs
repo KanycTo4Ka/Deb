@@ -1,16 +1,17 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplodingEnemy : AbstractEnemy
 {
-    [Range(0.1f, 10)]
+    [Range(0.1f, 30)]
     public float attackRange = 10;
     [Range(1, 100)]
     public int damage;
 
-    List<GameObject> objectsInRadius = new List<GameObject>();
+    [SerializeField] ParticleSystem explosionEffect;
 
-    public ParticleSystem explosionEffect;
+    [SerializeField] LayerMask targetLayer;
 
     RunTo runState;
     Attack attackState;
@@ -25,19 +26,16 @@ public class ExplodingEnemy : AbstractEnemy
         stunnedState = new Stunned(this);
         rotateState = new RotateTo(this);
 
-        explosionEffect.Stop();
+        explosionEffect.Pause();
 
         stateMachine.startingState(runState);
     }
 
     public override void updateState()
     {
-        if (isDefeat)
-        {
-            return;
-        }
 
-        if (dead) return;
+        if (dead == true)
+            return;
 
         if (stunned)
             stateMachine?.setState(stunnedState);
@@ -51,7 +49,7 @@ public class ExplodingEnemy : AbstractEnemy
                     stateMachine?.setState(runState);
                 else
                 {
-                    if (Vector3.Angle(transform.forward, player.position - transform.position) > 10)
+                    if (Vector3.Angle(transform.forward, player.position - transform.position) > 20)
                         stateMachine?.setState(rotateState);
                     else
                     {
@@ -64,29 +62,20 @@ public class ExplodingEnemy : AbstractEnemy
         stateMachine?.update();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        objectsInRadius.Add(other.gameObject);
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        objectsInRadius.Remove(other.gameObject);
-    }
-
     public void explosion()
     {
         if (Vector3.Distance(transform.position, player.position) <= attackRange)
         {
             explosionEffect.Play();
 
-            foreach (var obj in objectsInRadius)
+            Collider[] colliders = Physics.OverlapSphere(transform.position, attackRange, targetLayer);
+
+            foreach (Collider collider in colliders)
             {
-                if (obj != null)
+                Health enemyHP = collider.gameObject.GetComponent<Health>();
+                if (enemyHP != null)
                 {
-                    Health HP = obj.GetComponent<Health>();
-                    if (HP != null)
-                        HP.hpDecrease(damage);
+                    enemyHP.hpDecrease(damage);
                 }
             }
 

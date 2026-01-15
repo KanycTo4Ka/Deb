@@ -8,8 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [Range(1f, 100f)] float defaultMoveSpeed = 10f;
     [HideInInspector]
     public float curMoveSpeed = 0f;
-    [SerializeField]
-    [Range(1f, 100f)] float jumpForce = 5;
+
     [SerializeField] CharacterController controller;
 
     [SerializeField] float gravity = -9.81f;
@@ -29,12 +28,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
         direction = new Vector3(movementVector.x, 0, movementVector.y).normalized;
-    }
-
-    private void OnJump()
-    {
-        if (grounded)
-            velocity.y = Mathf.Sqrt(jumpForce * -3.0f * gravity);
     }
 
     void LateUpdate()

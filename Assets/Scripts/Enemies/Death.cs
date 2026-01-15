@@ -1,19 +1,18 @@
 using UnityEngine;
 
-public class Attack : IState
+public class Death : IState
 {
     AbstractEnemy enemy;
 
-    public Attack(AbstractEnemy enemy)
+    public Death(AbstractEnemy enemy)
     {
         this.enemy = enemy;
     }
 
     public void enter()
     {
-        Debug.Log("attack" + enemy);
         enemy.stop(true);
-        enemy.attack(true);
+        enemy.attack(false);
     }
 
     public void exit()
@@ -24,6 +23,6 @@ public class Attack : IState
 
     public void update()
     {
-        enemy.attack(true);
+        
     }
 }
